@@ -1,3 +1,8 @@
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -193,23 +198,40 @@ public class FrontEnd extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        System.out.println("Clearing");
-        jRadioButton2.setSelected(false);
-        jRadioButton3.setSelected(false);
+        try {
+            System.out.println("Clearing");
+            jRadioButton2.setSelected(false);
+            jRadioButton3.setSelected(false);
+            String filePath = System.getProperty("user.dir");
+            ReadTemplate readTemplate;
+            readTemplate = new ReadTemplate(filePath + "/src/templates/ClearingRequest.xml");
+            jTextArea1.setText(readTemplate.getTemplate());
+        } catch (IOException ex) {
+            Logger.getLogger(FrontEnd.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Trade");
-        jRadioButton1.setSelected(false);
-        jRadioButton2.setSelected(false);
+        try {
+            // TODO add your handling code here:
+            System.out.println("Trade");
+            jRadioButton1.setSelected(false);
+            jRadioButton2.setSelected(false);
+            
+            String filePath = System.getProperty("user.dir");
+            ReadTemplate readTemplate;
+            readTemplate = new ReadTemplate(filePath + "/src/templates/TradeMatchReport.xml");
+            jTextArea1.setText(readTemplate.getTemplate());
+        } catch (IOException ex) {
+            Logger.getLogger(FrontEnd.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         System.out.println("Trade Confirmation");
-        
         jRadioButton1.setSelected(false);
         jRadioButton3.setSelected(false);
+         jTextArea1.setText("");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
