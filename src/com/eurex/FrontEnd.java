@@ -1,11 +1,13 @@
 package com.eurex;
 
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 
 /*
@@ -20,6 +22,9 @@ import javax.swing.SwingWorker;
  */
 public class FrontEnd extends javax.swing.JFrame {
 
+    private String queue;
+    private String reply_address;
+    private String response_address;
     /**
      * Creates new form FrontEnd
      */
@@ -53,6 +58,7 @@ public class FrontEnd extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +109,8 @@ public class FrontEnd extends javax.swing.JFrame {
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
+        jTextField1.setText("CBKFR_TESTCALMMACC2");
+
         jLabel2.setFont(new java.awt.Font("Cantarell", 1, 48)); // NOI18N
         jLabel2.setText("EUREX ");
 
@@ -111,6 +119,8 @@ public class FrontEnd extends javax.swing.JFrame {
         jLabel3.setText("Iteration #");
 
         jTextField3.setText("admin/admin@cgbch");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACCOUNT TRANSFER", "TRADE SPLIT", "AVERAGE PRICE", "DE-MERGE", "OC ADJUSTMENT", "TEXT ADJUSTMENT" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,32 +144,32 @@ public class FrontEnd extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(65, 65, 65))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jRadioButton3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jRadioButton3)
                                 .addGap(41, 41, 41)
                                 .addComponent(jRadioButton2)
                                 .addGap(38, 38, 38)
                                 .addComponent(jRadioButton1)
-                                .addGap(171, 171, 171))
+                                .addGap(274, 274, 274))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(454, 454, 454))))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(454, 454, 454))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(65, 65, 65))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,33 +195,49 @@ public class FrontEnd extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(jRadioButton3)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 12, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+  
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          
+        final String txt = evt.getActionCommand();  
+        
+        if(!verifyRadioIsSelected()){
+            jTextArea1.append("PLEASE MAKE SELECTION ON RADIO BUTTON \n");
+            jTextArea1.setForeground(Color.red);
+            return;
+        }
+        
         jProgressBar1.setValue(0);
         jProgressBar1.setStringPainted(true);
-                
-        if (jTextField2.getText().isEmpty()) jTextField2.setText("1");
-        int iteration=Integer.parseInt(jTextField2.getText());
         
-        SwingWorker worker = null;
+        if (jTextField2.getText().isEmpty()) jTextField2.setText("1");
+        final int iteration=Integer.parseInt(jTextField2.getText());
+        jButton1.setEnabled(false);
+      
+        
+        SwingWorker worker;
         worker = new SwingWorker<Object, float[]>() {
-            
+        MessageClient messageClient = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:21282'");
+        MessageClient tradeConfirmation = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:20282'");            
+        MessageClient clearingRequest = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:22282'");            
             @Override
             protected void process(List<float[]> chunks) {
                 float[] progress = chunks.get(chunks.size() - 1); // only want the last one
@@ -220,23 +246,57 @@ public class FrontEnd extends javax.swing.JFrame {
             }
             @Override
             protected Object doInBackground() throws Exception {
-                
-                for (int i=1; i<=iteration;i++){
-                    System.out.println("sending payload " +i);
-                    
-                    publish(new float[]{
-                       getProgress1(i, iteration),
-                     });
-                    Thread.sleep(5);  //will once the processor is in place                  
-                }
-                return null;
+             
+             if (txt.contains("SEND")&&(txt.contains("PAYLOAD"))){
+                    for (int i=1; i<=iteration;i++){
+                        messageClient.SendMessage("broadcast/broadcast.RAPPIDD_Trade", jTextArea1.getText(),Integer.toString(i));
+                        jTextArea2.setText("Loading... [ " + i  + " ] MESSAGES");
+                        jTextArea2.append("\n");
+                        jTextArea2.setBackground(Color.LIGHT_GRAY);
+                        jTextArea2.setForeground(Color.BLUE);
+                        publish(new float[]{
+                        getProgress1(i, iteration),
+                        });
+                        Thread.sleep(5);
+                        
+                    }
+             }
+             if(txt.contains("GET")){
+                  List total = tradeConfirmation.getTradeConfirmation(queue, jTextArea2,jProgressBar1);
+                  if (total.isEmpty()){
+                      jTextArea2.setText("NO MORE MESSAGES FOUND");
+                      jTextArea2.setBackground(Color.black);
+                      jTextArea2.setForeground(Color.WHITE);
+                  }else{
+                       jTextArea1.setText("[ " + total.size() + " ] MESSAGE(S) FOUND");
+                   }
+                  jButton1.setEnabled(true);
+             }
+             
+             if (txt.contains("SEND")&&(txt.contains("CLEARING"))){
+                 for (int i=1; i<=iteration;i++){
+                 setRequestData();
+                 String key=String.format("request.%s.Request", jTextField1.getText());
+                 tradeConfirmation.SendAndRecieve(queue,jTextArea1.getText(),key,reply_address,response_address,jTextArea2);
+                publish(new float[]{
+                        getProgress1(i, iteration),
+                        });
+                        
+                    }
+             }
+             jButton1.setEnabled(true);
+             return null;
             }
         };
-        
-         worker.execute();
+        worker.execute();
                    
     }//GEN-LAST:event_jButton1ActionPerformed
-
+   
+    public JProgressBar getProgressBar(){
+        
+        return jProgressBar1;
+    }
+    
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         try {
             System.out.println("Clearing");
@@ -244,8 +304,13 @@ public class FrontEnd extends javax.swing.JFrame {
             jRadioButton3.setSelected(false);
             String filePath = System.getProperty("user.dir");
             ReadTemplate readTemplate;
-            readTemplate = new ReadTemplate(filePath + "/src/templates/ClearingRequest.xml");
+            readTemplate = new ReadTemplate(filePath + "/templates/ClearingRequest.xml");
+            jTextArea1.setForeground(Color.black);
+            jTextArea2.setBackground(Color.white);
             jTextArea1.setText(readTemplate.getTemplate());
+            jTextArea2.setText("");
+            jButton1.setText("SEND CLEARING");
+            
         } catch (IOException ex) {
             Logger.getLogger(FrontEnd.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -253,15 +318,17 @@ public class FrontEnd extends javax.swing.JFrame {
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         try {
-            // TODO add your handling code here:
             System.out.println("Trade");
             jRadioButton1.setSelected(false);
             jRadioButton2.setSelected(false);
-            
+            jTextArea2.setText("");
             String filePath = System.getProperty("user.dir");
             ReadTemplate readTemplate;
-            readTemplate = new ReadTemplate(filePath + "/src/templates/TradeMatchReport.xml");
+            readTemplate = new ReadTemplate(filePath + "/templates/TradeMatchReport.xml");
+            jTextArea1.setForeground(Color.black);
+            jTextArea2.setBackground(Color.white);
             jTextArea1.setText(readTemplate.getTemplate());
+            jButton1.setText("SEND PAYLOAD");
         } catch (IOException ex) {
             Logger.getLogger(FrontEnd.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -271,7 +338,11 @@ public class FrontEnd extends javax.swing.JFrame {
         System.out.println("Trade Confirmation");
         jRadioButton1.setSelected(false);
         jRadioButton3.setSelected(false);
-         jTextArea1.setText("");
+        jTextArea1.setText("");
+        jTextArea2.setText("");
+        jButton1.setText("GET PAYLOAD");
+        jTextArea2.setBackground(Color.white);
+        queue = String.format("broadcast.%s.%s ;{mode: consume}",jTextField1.getText(),"TradeConfirmation");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jProgressBar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jProgressBar1PropertyChange
@@ -315,8 +386,24 @@ public class FrontEnd extends javax.swing.JFrame {
 public float getProgress1(int value, int max) {
              return (float)value / (float)max;
             }
+
+public void setRequestData(){
+    queue = String.format("request.%s/request; { node: { type: topic }, create: never }",jTextField1.getText());
+    reply_address = String.format("response/response.%s.queue_1; { create: receiver, node: { type: topic } }",jTextField1.getText());
+    response_address = String.format("response.%s.queue_1; {create: receiver, assert: never,node: { type: queue, x-declare:"+
+                           "{ auto-delete: true, exclusive: false," +
+                           "arguments: { 'qpid.policy_type':" +
+                           "ring,'qpid.max_count': 1000," +
+                           "'qpid.max_size': 1000000 } }, x-bindings: [ { exchange: 'response', queue:'response.%s.queue_1',key:"+
+                           "'response.%s.queue_1', } ] } }",jTextField1.getText(),jTextField1.getText(),jTextField1.getText());
+}
+private boolean verifyRadioIsSelected(){
+    
+    return  jRadioButton1.isSelected()|| jRadioButton2.isSelected()|| jRadioButton3.isSelected();
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
