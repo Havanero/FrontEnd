@@ -235,9 +235,9 @@ public class FrontEnd extends javax.swing.JFrame {
         
         SwingWorker worker;
         worker = new SwingWorker<Object, float[]>() {
-        MessageClient messageClient = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:21282'");
-        MessageClient tradeConfirmation = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:20282'");            
-        MessageClient clearingRequest = new MessageClient("amqp://admin:admin@client_id/admin?brokerlist='tcp://cbgd01.xeop.de:22282'");            
+        MessageClient messageClient = new MessageClient("xxxxx:xxx'");
+        MessageClient tradeConfirmation = new MessageClient("amqp://xxx:xxx@client_id/admin?brokerlist='tcp://host:port'");            
+        MessageClient clearingRequest = new MessageClient("amqp://xxx:xxx@client_id/admin?brokerlist='tcp://host:port'");            
             @Override
             protected void process(List<float[]> chunks) {
                 float[] progress = chunks.get(chunks.size() - 1); // only want the last one
